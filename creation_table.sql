@@ -18,11 +18,11 @@ EXEC drop_table 'cities';
 EXEC drop_table 'phones';
 EXEC drop_table 'suppliers';
 EXEC drop_table 'customers';
+EXEC drop_table 'delivery_items';
 EXEC drop_table 'product';
 EXEC drop_table 'product_type';
 EXEC drop_table 'packaging';
 EXEC drop_table 'manufacturer';
-EXEC drop_table 'delivery_items';
 
 CREATE TABLE cities (
     id TINYINT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -102,7 +102,7 @@ CREATE TABLE id_cards (
 );
 
 CREATE TABLE positions (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id SMALLINT PRIMARY KEY IDENTITY(1,1),
     name VARCHAR(100) NOT NULL,
     salary DECIMAL(10,2) NOT NULL
 );
@@ -110,7 +110,7 @@ CREATE TABLE positions (
 CREATE TABLE employees (
     id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     person_id INT NOT NULL,
-    position_id INT NOT NULL,
+    position_id SMALLINT NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE,
     FOREIGN KEY (person_id) REFERENCES persons(id) ON DELETE CASCADE,
@@ -119,26 +119,26 @@ CREATE TABLE employees (
 );
 
 CREATE TABLE responsibilities (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id SMALLINT PRIMARY KEY IDENTITY(1,1),
     description VARCHAR(MAX) NOT NULL
 );
 
 CREATE TABLE requirements (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id SMALLINT PRIMARY KEY IDENTITY(1,1),
     description VARCHAR(MAX) NOT NULL
 );
 
 CREATE TABLE position_responsibilities (
-    position_id INT,
-    responsibility_id INT,
+    position_id SMALLINT,
+    responsibility_id SMALLINT,
     PRIMARY KEY (position_id, responsibility_id),
     FOREIGN KEY (position_id) REFERENCES positions(id),
     FOREIGN KEY (responsibility_id) REFERENCES responsibilities(id)
 );
 
 CREATE TABLE position_requirements (
-    position_id INT,
-    requirement_id INT,
+    position_id SMALLINT,
+    requirement_id SMALLINT,
     PRIMARY KEY (position_id, requirement_id),
     FOREIGN KEY (position_id) REFERENCES positions(id),
     FOREIGN KEY (requirement_id) REFERENCES requirements(id)
@@ -184,6 +184,41 @@ CREATE TABLE deliveries (
     FOREIGN KEY (employee_id) REFERENCES employees (id) ON DELETE NO ACTION
 );
 
+CREATE TABLE manufacturer (
+    id SMALLINT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at DATE NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE packaging (
+    id TINYINT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(500) NOT NULL,
+    created_at DATE NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE product_type (
+    id TINYINT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(500) NOT NULL,
+    characteristics VARCHAR(1000) NOT NULL,
+    created_at DATE NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE product (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    product_type_id TINYINT NOT NULL,
+    manufacturer_id SMALLINT NOT NULL,
+    storage_conditions VARCHAR(500) NOT NULL,
+    packaging_id TINYINT NOT NULL,
+    created_at DATE NOT NULL DEFAULT GETDATE(),
+    expiration_at DATE,
+    FOREIGN KEY (product_type_id) REFERENCES product_type(id),
+    FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),
+    FOREIGN KEY (packaging_id) REFERENCES packaging(id)
+);
+
 CREATE TABLE delivery_items (
     delivery_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -195,41 +230,6 @@ CREATE TABLE delivery_items (
     FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
     CONSTRAINT chk_positive_quantity CHECK (quantity > 0),
     CONSTRAINT chk_positive_unit_price CHECK (unit_price >= 0)
-);
-
-CREATE TABLE manufacturer (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
-);
-
-CREATE TABLE packaging (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description VARCHAR(500) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
-);
-
-CREATE TABLE product_type (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description VARCHAR(500) NOT NULL,
-    characteristics VARCHAR(1000) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
-);
-
-CREATE TABLE product (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    product_type_id INT NOT NULL,
-    manufacturer_id INT NOT NULL,
-    storage_conditions VARCHAR(500) NOT NULL,
-    packaging_id INT NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE(),
-    expiration_at DATE,
-    FOREIGN KEY (product_type_id) REFERENCES product_type(id),
-    FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),
-    FOREIGN KEY (packaging_id) REFERENCES packaging(id)
 );
 
 GO
@@ -298,4 +298,4 @@ BEGIN
     DELETE FROM deliveries WHERE employee_id IN (SELECT id FROM deleted)
 END; 
 
-GO;
+GO
