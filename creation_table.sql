@@ -55,8 +55,10 @@ CREATE TABLE phones (
 CREATE TABLE persons (
     id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     address_id INT NOT NULL,
-    full_name VARCHAR(100) NOT NULL,
     birth_date DATE NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    patronymic VARCHAR(50),
     gender BIT NOT NULL,
     FOREIGN KEY (address_id) REFERENCES addresses (id) ON DELETE CASCADE
 );
@@ -187,14 +189,18 @@ CREATE TABLE deliveries (
 CREATE TABLE manufacturer (
     id SMALLINT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
+    phone_id INT NOT NULL,
+    city_id TINYINT NOT NULL,
+    responsible_person_id INT NOT NULL,
+    FOREIGN KEY (phone_id) REFERENCES phones(id) ON DELETE NO ACTION,
+    FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE NO ACTION,
+    FOREIGN KEY (responsible_person_id) REFERENCES persons(id) ON DELETE NO ACTION
 );
 
 CREATE TABLE packaging (
     id TINYINT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
 );
 
 CREATE TABLE product_type (
@@ -202,7 +208,6 @@ CREATE TABLE product_type (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
     characteristics VARCHAR(1000) NOT NULL,
-    created_at DATE NOT NULL DEFAULT GETDATE()
 );
 
 CREATE TABLE product (
