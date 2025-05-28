@@ -137,6 +137,12 @@ INSERT INTO phones (phone_number) VALUES
 	('380681112233'),
 	('380952223344'),
 	('380673334455'),
+	('380631234568'),
+	('380631234569'),
+	('380631234570'),
+	('380631234571'),
+	('380631234572'),
+	('380631234573'),
 	('48600100200');
 
 DECLARE
@@ -150,6 +156,12 @@ DECLARE
     @phone_Bondarenko_D_id INT = (SELECT id FROM phones WHERE phone_number = '380681112233'),
     @phone_Tkachenko_A_id INT = (SELECT id FROM phones WHERE phone_number = '380952223344'),
     @phone_Kovalenko_O_id INT = (SELECT id FROM phones WHERE phone_number = '380673334455'),
+    @phone_Kravchenko_M_id INT = (SELECT id FROM phones WHERE phone_number = '380631234568'),
+    @phone_Oliynyk_I_id INT = (SELECT id FROM phones WHERE phone_number = '380631234569'),
+    @phone_Nazarenko_S_id INT = (SELECT id FROM phones WHERE phone_number = '380631234570'),
+    @phone_Pavlenko_V_id INT = (SELECT id FROM phones WHERE phone_number = '380631234571'),
+    @phone_Marchenko_T_id INT = (SELECT id FROM phones WHERE phone_number = '380631234572'),
+    @phone_Herashchenko_A_id INT = (SELECT id FROM phones WHERE phone_number = '380631234573'),
     @phone_Kowalski_Y_id INT = (SELECT id FROM phones WHERE phone_number = '48600100200');
 
 INSERT INTO person_phones (person_id, phone_id) VALUES
@@ -198,3 +210,449 @@ INSERT INTO id_cards (person_id, number, issue_date, expiration_date, issue_plac
 	(@person_Kozak_D_id, '456701234', '2021-03-03', '2026-03-03', 'Дніпровський РВ ГУМВС України в Дніпропетровській області'),
 	(@person_Moroz_D_id, '567012345', '2022-04-04', '2027-04-04', 'Дніпровський РВ ГУМВС України в Дніпропетровській області'),
 	(@person_Kowalski_Y_id, '670123456', '2020-10-10', '2025-10-10', 'Варшавський РВ ГУМВС Польщі');
+
+INSERT INTO positions (name, salary) VALUES
+	('Менеджер', 25000.00),
+	('Бухгалтер', 22000.00),
+	('Складський працівник', 15000.00),
+	('Водій', 18000.00),
+	('Торговий представник', 20000.00),
+	('HR-спеціаліст', 19000.00),
+	('IT-спеціаліст', 28000.00),
+	('Логіст', 23000.00),
+	('Контролер якості', 17000.00),
+	('Спеціаліст з обслуговування клієнтів', 16000.00);
+
+DECLARE
+    @position_Manager_id SMALLINT = (SELECT id FROM positions WHERE name = 'Менеджер'),
+    @position_Accountant_id SMALLINT = (SELECT id FROM positions WHERE name = 'Бухгалтер'),
+    @position_Warehouse_Worker_id SMALLINT = (SELECT id FROM positions WHERE name = 'Складський працівник'),
+    @position_Driver_id SMALLINT = (SELECT id FROM positions WHERE name = 'Водій'),
+    @position_Sales_Representative_id SMALLINT = (SELECT id FROM positions WHERE name = 'Торговий представник'),
+    @position_HR_Specialist_id SMALLINT = (SELECT id FROM positions WHERE name = 'HR-спеціаліст'),
+    @position_IT_Specialist_id SMALLINT = (SELECT id FROM positions WHERE name = 'IT-спеціаліст'),
+    @position_Logistics_Specialist_id SMALLINT = (SELECT id FROM positions WHERE name = 'Логіст'),
+    @position_Quality_Controller_id SMALLINT = (SELECT id FROM positions WHERE name = 'Контролер якості'),
+    @position_Customer_Service_id SMALLINT = (SELECT id FROM positions WHERE name = 'Спеціаліст з обслуговування клієнтів');
+
+INSERT INTO employees (person_id, position_id, start_date, end_date) VALUES
+	(@person_Petrov_S_id, @position_Manager_id, '2020-01-15', NULL),
+	(@person_Kovalchuk_O_id, @position_Accountant_id, '2019-03-01', NULL),
+	(@person_Sydorenko_V_id, @position_Warehouse_Worker_id, '2021-06-10', NULL),
+	(@person_Lysenko_M_id, @position_HR_Specialist_id, '2020-09-01', NULL),
+	(@person_Melnyk_A_Lec_id, @position_IT_Specialist_id, '2018-11-15', NULL),
+	(@person_Ivanenko_M_id, @position_Sales_Representative_id, '2022-01-10', NULL),
+	(@person_Shevchenko_Y_id, @position_Customer_Service_id, '2022-02-15', NULL),
+	(@person_Bondarenko_D_id, @position_Warehouse_Worker_id, '2022-03-01', NULL),
+	(@person_Tkachenko_A_id, @position_Customer_Service_id, '2022-04-01', NULL),
+	(@person_Kovalenko_O_id, @position_Driver_id, '2022-05-15', NULL),
+	(@person_Kravchenko_M_id, @position_Quality_Controller_id, '2022-06-01', NULL),
+	(@person_Oliynyk_I_id, @position_Logistics_Specialist_id, '2022-07-01', NULL),
+	(@person_Nazarenko_S_id, @position_Customer_Service_id, '2022-08-01', NULL),
+	(@person_Pavlenko_V_id, @position_Warehouse_Worker_id, '2022-09-01', NULL),
+	(@person_Marchenko_T_id, @position_Customer_Service_id, '2022-10-01', NULL),
+	(@person_Herashchenko_A_id, @position_Driver_id, '2022-11-01', NULL),
+	(@person_Fedorenko_N_id, @position_Quality_Controller_id, '2022-12-01', NULL),
+	(@person_Lytvynenko_R_id, @position_Logistics_Specialist_id, '2023-01-01', NULL),
+	(@person_Shulha_V_id, @position_Customer_Service_id, '2023-02-01', NULL),
+	(@person_Zakharchenko_M_id, @position_Warehouse_Worker_id, '2023-03-01', NULL),
+	(@person_Kyrychenko_L_id, @position_Customer_Service_id, '2023-04-01', NULL),
+	(@person_Polishchuk_Y_id, @position_Driver_id, '2023-05-01', NULL),
+	(@person_Tkachuk_I_id, @position_Quality_Controller_id, '2023-06-01', NULL),
+	(@person_Savchenko_T_id, @position_Logistics_Specialist_id, '2023-07-01', NULL),
+	(@person_Vasylenko_K_id, @position_Customer_Service_id, '2023-08-01', NULL),
+	(@person_Honcharenko_A_id, @position_Warehouse_Worker_id, '2023-09-01', NULL),
+	(@person_Melnyk_O_Stu_id, @position_Customer_Service_id, '2023-10-01', NULL),
+	(@person_Kozak_D_id, @position_Driver_id, '2023-11-01', '2023-12-31'),
+	(@person_Moroz_D_id, @position_Quality_Controller_id, '2023-12-01', NULL),
+	(@person_Kowalski_Y_id, @position_Logistics_Specialist_id, '2024-01-01', '2024-12-31');
+
+INSERT INTO responsibilities (description) VALUES
+    ('Керування командою та координація роботи відділу'),
+    ('Планування та контроль виконання завдань'),
+    ('Ведення фінансової звітності та бухгалтерського обліку'),
+    ('Контроль руху товарів на складі'),
+    ('Прийом та відвантаження товарів'),
+    ('Управління транспортними засобами та доставкою'),
+    ('Пошук та робота з клієнтами'),
+    ('Проведення переговорів та укладання договорів'),
+    ('Підбір та навчання персоналу'),
+    ('Розробка та підтримка IT-систем'),
+    ('Оптимізація логістичних процесів'),
+    ('Контроль якості товарів та послуг'),
+    ('Обслуговування клієнтів та вирішення проблем'),
+    ('Розробка стратегії розвитку компанії'),
+    ('Аналіз ринку та конкурентів');
+
+DECLARE
+    @resp_Team_Management_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Керування командою та координація роботи відділу'),
+    @resp_Task_Planning_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Планування та контроль виконання завдань'),
+    @resp_Financial_Reporting_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Ведення фінансової звітності та бухгалтерського обліку'),
+    @resp_Inventory_Control_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Контроль руху товарів на складі'),
+    @resp_Goods_Handling_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Прийом та відвантаження товарів'),
+    @resp_Transport_Management_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Управління транспортними засобами та доставкою'),
+    @resp_Client_Search_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Пошук та робота з клієнтами'),
+    @resp_Negotiations_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Проведення переговорів та укладання договорів'),
+    @resp_HR_Management_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Підбір та навчання персоналу'),
+    @resp_IT_Development_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Розробка та підтримка IT-систем'),
+    @resp_Logistics_Optimization_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Оптимізація логістичних процесів'),
+    @resp_Quality_Control_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Контроль якості товарів та послуг'),
+    @resp_Customer_Service_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Обслуговування клієнтів та вирішення проблем'),
+    @resp_Strategy_Development_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Розробка стратегії розвитку компанії'),
+    @resp_Market_Analysis_id SMALLINT = (SELECT id FROM responsibilities WHERE description = 'Аналіз ринку та конкурентів');
+
+INSERT INTO requirements (description) VALUES
+    ('Вища освіта в сфері менеджменту або економіки'),
+    ('Досвід роботи на керівних посадах від 3 років'),
+    ('Знання бухгалтерського обліку та фінансової звітності'),
+    ('Досвід роботи з 1С або іншими бухгалтерськими системами'),
+    ('Знання складського обліку та систем управління запасами'),
+    ('Досвід роботи на складі від 2 років'),
+    ('Наявність водійського посвідчення категорії B, C'),
+    ('Досвід роботи водієм від 3 років'),
+    ('Знання техніки продажів та ведення переговорів'),
+    ('Досвід роботи в продажах від 2 років'),
+    ('Знання HR-процесів та трудового законодавства'),
+    ('Досвід роботи в HR від 2 років'),
+    ('Знання мов програмування та баз даних'),
+    ('Досвід розробки програмного забезпечення від 3 років'),
+    ('Знання логістичних процесів та систем'),
+    ('Досвід роботи в логістиці від 2 років'),
+    ('Знання стандартів якості та методів контролю'),
+    ('Досвід роботи в сфері контролю якості від 2 років'),
+    ('Навички роботи з клієнтами та вирішення конфліктів'),
+    ('Досвід роботи в сфері обслуговування клієнтів від 1 року');
+
+DECLARE
+    @req_Higher_Education_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Вища освіта в сфері менеджменту або економіки'),
+    @req_Management_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи на керівних посадах від 3 років'),
+    @req_Accounting_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання бухгалтерського обліку та фінансової звітності'),
+    @req_1C_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи з 1С або іншими бухгалтерськими системами'),
+    @req_Inventory_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання складського обліку та систем управління запасами'),
+    @req_Warehouse_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи на складі від 2 років'),
+    @req_Driving_License_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Наявність водійського посвідчення категорії B, C'),
+    @req_Driving_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи водієм від 3 років'),
+    @req_Sales_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання техніки продажів та ведення переговорів'),
+    @req_Sales_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи в продажах від 2 років'),
+    @req_HR_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання HR-процесів та трудового законодавства'),
+    @req_HR_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи в HR від 2 років'),
+    @req_Programming_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання мов програмування та баз даних'),
+    @req_Programming_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід розробки програмного забезпечення від 3 років'),
+    @req_Logistics_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання логістичних процесів та систем'),
+    @req_Logistics_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи в логістиці від 2 років'),
+    @req_Quality_Knowledge_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Знання стандартів якості та методів контролю'),
+    @req_Quality_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи в сфері контролю якості від 2 років'),
+    @req_Customer_Service_Skills_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Навички роботи з клієнтами та вирішення конфліктів'),
+    @req_Customer_Service_Experience_id SMALLINT = (SELECT id FROM requirements WHERE description = 'Досвід роботи в сфері обслуговування клієнтів від 1 року');
+
+INSERT INTO position_responsibilities (position_id, responsibility_id) VALUES
+    (@position_Manager_id, @resp_Team_Management_id),
+    (@position_Manager_id, @resp_Task_Planning_id),
+    (@position_Manager_id, @resp_Strategy_Development_id),
+    (@position_Manager_id, @resp_Market_Analysis_id),
+    (@position_Manager_id, @resp_Negotiations_id),
+    (@position_Accountant_id, @resp_Financial_Reporting_id),
+    (@position_Accountant_id, @resp_Task_Planning_id),
+    (@position_Warehouse_Worker_id, @resp_Inventory_Control_id),
+    (@position_Warehouse_Worker_id, @resp_Goods_Handling_id),
+    (@position_Driver_id, @resp_Transport_Management_id),
+    (@position_Driver_id, @resp_Goods_Handling_id),
+    (@position_Sales_Representative_id, @resp_Client_Search_id),
+    (@position_Sales_Representative_id, @resp_Negotiations_id),
+    (@position_HR_Specialist_id, @resp_HR_Management_id),
+    (@position_HR_Specialist_id, @resp_Task_Planning_id),
+    (@position_IT_Specialist_id, @resp_IT_Development_id),
+    (@position_IT_Specialist_id, @resp_Task_Planning_id),
+    (@position_Logistics_Specialist_id, @resp_Logistics_Optimization_id),
+    (@position_Logistics_Specialist_id, @resp_Transport_Management_id),
+    (@position_Logistics_Specialist_id, @resp_Task_Planning_id),
+    (@position_Quality_Controller_id, @resp_Quality_Control_id),
+    (@position_Quality_Controller_id, @resp_Task_Planning_id),
+    (@position_Customer_Service_id, @resp_Customer_Service_id),
+    (@position_Customer_Service_id, @resp_Client_Search_id);
+
+INSERT INTO position_requirements (position_id, requirement_id) VALUES
+    (@position_Manager_id, @req_Higher_Education_id),
+    (@position_Manager_id, @req_Management_Experience_id),
+    (@position_Manager_id, @req_Sales_Knowledge_id),
+    (@position_Accountant_id, @req_Higher_Education_id),
+    (@position_Accountant_id, @req_Accounting_Knowledge_id),
+    (@position_Accountant_id, @req_1C_Experience_id),
+    (@position_Warehouse_Worker_id, @req_Inventory_Knowledge_id),
+    (@position_Warehouse_Worker_id, @req_Warehouse_Experience_id),
+    (@position_Driver_id, @req_Driving_License_id),
+    (@position_Driver_id, @req_Driving_Experience_id),
+    (@position_Sales_Representative_id, @req_Sales_Knowledge_id),
+    (@position_Sales_Representative_id, @req_Sales_Experience_id),
+    (@position_HR_Specialist_id, @req_Higher_Education_id),
+    (@position_HR_Specialist_id, @req_HR_Knowledge_id),
+    (@position_HR_Specialist_id, @req_HR_Experience_id),
+    (@position_IT_Specialist_id, @req_Higher_Education_id),
+    (@position_IT_Specialist_id, @req_Programming_Knowledge_id),
+    (@position_IT_Specialist_id, @req_Programming_Experience_id),
+    (@position_Logistics_Specialist_id, @req_Higher_Education_id),
+    (@position_Logistics_Specialist_id, @req_Logistics_Knowledge_id),
+    (@position_Logistics_Specialist_id, @req_Logistics_Experience_id),
+    (@position_Quality_Controller_id, @req_Quality_Knowledge_id),
+    (@position_Quality_Controller_id, @req_Quality_Experience_id),
+    (@position_Customer_Service_id, @req_Customer_Service_Skills_id),
+    (@position_Customer_Service_id, @req_Customer_Service_Experience_id);
+
+INSERT INTO delivery_methods (name) VALUES
+    ('Самовивіз'),
+    ('Кур''єрська доставка'),
+    ('Транспортна компанія'),
+    ('Поштова служба'),
+    ('Експрес-доставка');
+
+DECLARE
+    @delivery_method_Self_Pickup_id TINYINT = (SELECT id FROM delivery_methods WHERE name = 'Самовивіз'),
+    @delivery_method_Courier_id TINYINT = (SELECT id FROM delivery_methods WHERE name = 'Кур''єрська доставка'),
+    @delivery_method_Transport_Company_id TINYINT = (SELECT id FROM delivery_methods WHERE name = 'Транспортна компанія'),
+    @delivery_method_Post_Service_id TINYINT = (SELECT id FROM delivery_methods WHERE name = 'Поштова служба'),
+    @delivery_method_Express_Delivery_id TINYINT = (SELECT id FROM delivery_methods WHERE name = 'Експрес-доставка');
+
+INSERT INTO packaging (name, description) VALUES
+    ('Картонна коробка', 'Стандартна картонна коробка для транспортування товарів. Розміри: 30x20x15 см. Максимальне навантаження: 10 кг.'),
+    ('Пластиковий контейнер', 'Міцний пластиковий контейнер для харчових продуктів. Розміри: 40x30x20 см. Герметичний.'),
+    ('Термопакет', 'Спеціальний пакет для транспортування заморожених продуктів. Зберігає температуру до 24 годин.'),
+    ('Дерев''яний ящик', 'Міцний дерев''яний ящик для важких товарів. Розміри: 50x40x30 см. Максимальне навантаження: 30 кг.'),
+    ('Плівка-стрейч', 'Плівка для упаковки палет та коробок. Ширина: 50 см. Довжина рулону: 300 м.'),
+    ('Повітряна подушка', 'Захисна упаковка для крихких товарів. Розміри: 30x40 см.'),
+    ('Скотч', 'Упаковочна стрічка. Ширина: 48 мм. Довжина рулону: 50 м.'),
+    ('Бумажний пакет', 'Екологічна упаковка для легких товарів. Розміри: 25x35 см.');
+
+DECLARE
+    @packaging_Cardboard_Box_id TINYINT = (SELECT id FROM packaging WHERE name = 'Картонна коробка'),
+    @packaging_Plastic_Container_id TINYINT = (SELECT id FROM packaging WHERE name = 'Пластиковий контейнер'),
+    @packaging_Thermal_Bag_id TINYINT = (SELECT id FROM packaging WHERE name = 'Термопакет'),
+    @packaging_Wooden_Box_id TINYINT = (SELECT id FROM packaging WHERE name = 'Дерев''яний ящик'),
+    @packaging_Stretch_Film_id TINYINT = (SELECT id FROM packaging WHERE name = 'Плівка-стрейч'),
+    @packaging_Air_Cushion_id TINYINT = (SELECT id FROM packaging WHERE name = 'Повітряна подушка'),
+    @packaging_Tape_id TINYINT = (SELECT id FROM packaging WHERE name = 'Скотч'),
+    @packaging_Paper_Bag_id TINYINT = (SELECT id FROM packaging WHERE name = 'Бумажний пакет');
+
+INSERT INTO manufacturer (name, phone_id, city_id, responsible_person_id) VALUES
+    ('ТОВ "Українські Продукти"', @phone_Petrov_S_id, @dnipro_id, @person_Petrov_S_id),
+    ('ПАТ "Молочний Альянс"', @phone_Kovalchuk_O_id, @kyiv_id, @person_Kovalchuk_O_id),
+    ('ТОВ "М''ясна Компанія"', @phone_Sydorenko_V_id, @kharkiv_id, @person_Sydorenko_V_id),
+    ('ПАТ "Хлібопром"', @phone_Lysenko_M_id, @lviv_id, @person_Lysenko_M_id),
+    ('ТОВ "Фруктовий Світ"', @phone_Melnyk_A_Lec_id, @odesa_id, @person_Melnyk_A_Lec_id),
+    ('ПАТ "Кондитерська Фабрика"', @phone_Ivanenko_M_id, @dnipro_id, @person_Ivanenko_M_id),
+    ('ТОВ "Напої України"', @phone_Shevchenko_Y_id, @kyiv_id, @person_Shevchenko_Y_id),
+    ('ПАТ "Морозивна Компанія"', @phone_Bondarenko_D_id, @odesa_id, @person_Bondarenko_D_id);
+
+DECLARE
+    @manufacturer_Ukrainian_Products_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ТОВ "Українські Продукти"'),
+    @manufacturer_Dairy_Alliance_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ПАТ "Молочний Альянс"'),
+    @manufacturer_Meat_Company_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ТОВ "М''ясна Компанія"'),
+    @manufacturer_Bread_Industry_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ПАТ "Хлібопром"'),
+    @manufacturer_Fruit_World_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ТОВ "Фруктовий Світ"'),
+    @manufacturer_Confectionery_Factory_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ПАТ "Кондитерська Фабрика"'),
+    @manufacturer_Drinks_Ukraine_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ТОВ "Напої України"'),
+    @manufacturer_Ice_Cream_Company_id SMALLINT = (SELECT id FROM manufacturer WHERE name = 'ПАТ "Морозивна Компанія"');
+
+INSERT INTO product_type (name, description, characteristics) VALUES
+    ('Молочні продукти', 'Продукти з молока та молочних компонентів', 'Температура зберігання: +2°C до +6°C. Термін придатності: до 14 днів. Вимоги до транспортування: холодильний транспорт.'),
+    ('М''ясні вироби', 'Продукти з м''яса та м''ясних напівфабрикатів', 'Температура зберігання: -2°C до +4°C. Термін придатності: до 7 днів. Вимоги до транспортування: холодильний транспорт.'),
+    ('Хлібобулочні вироби', 'Свіжа випічка та хлібобулочні вироби', 'Температура зберігання: +18°C до +22°C. Термін придатності: до 3 днів. Вимоги до транспортування: сухе приміщення.'),
+    ('Фрукти та овочі', 'Свіжі фрукти та овочі', 'Температура зберігання: +4°C до +8°C. Термін придатності: до 14 днів. Вимоги до транспортування: холодильний транспорт.'),
+    ('Кондитерські вироби', 'Цукерки, печиво, шоколад', 'Температура зберігання: +15°C до +20°C. Термін придатності: до 180 днів. Вимоги до транспортування: сухе приміщення.'),
+    ('Безалкогольні напої', 'Соки, води, газовані напої', 'Температура зберігання: +4°C до +20°C. Термін придатності: до 365 днів. Вимоги до транспортування: захист від прямих сонячних променів.'),
+    ('Морозиво', 'Різні види морозива та заморожених десертів', 'Температура зберігання: -18°C до -22°C. Термін придатності: до 180 днів. Вимоги до транспортування: морозильний транспорт.');
+
+DECLARE
+    @product_type_Dairy_id TINYINT = (SELECT id FROM product_type WHERE name = 'Молочні продукти'),
+    @product_type_Meat_id TINYINT = (SELECT id FROM product_type WHERE name = 'М''ясні вироби'),
+    @product_type_Bakery_id TINYINT = (SELECT id FROM product_type WHERE name = 'Хлібобулочні вироби'),
+    @product_type_Fruits_Vegetables_id TINYINT = (SELECT id FROM product_type WHERE name = 'Фрукти та овочі'),
+    @product_type_Confectionery_id TINYINT = (SELECT id FROM product_type WHERE name = 'Кондитерські вироби'),
+    @product_type_Beverages_id TINYINT = (SELECT id FROM product_type WHERE name = 'Безалкогольні напої'),
+    @product_type_Ice_Cream_id TINYINT = (SELECT id FROM product_type WHERE name = 'Морозиво');
+
+INSERT INTO customers (name, address_id, phone_id, responsible_person_id) VALUES
+    ('ТОВ "Сільпо"', @addr_Khreshchatyk21_Kyiv_id, @phone_Petrov_S_id, @person_Petrov_S_id),
+    ('АТБ-Маркет', @addr_Svobody8_Lviv_id, @phone_Kovalchuk_O_id, @person_Kovalchuk_O_id),
+    ('ТОВ "Варус"', @addr_Sumska12_Kharkiv_id, @phone_Sydorenko_V_id, @person_Sydorenko_V_id),
+    ('ТОВ "Епіцентр"', @addr_Derybasivska5_Odesa_id, @phone_Lysenko_M_id, @person_Lysenko_M_id),
+    ('ТОВ "Нова Лінія"', @addr_Marshalkowska100_Warsaw_id, @phone_Melnyk_A_Lec_id, @person_Melnyk_A_Lec_id),
+    ('ТОВ "Метро"', @addr_Gagarina72_Dnipro_id, @phone_Ivanenko_M_id, @person_Ivanenko_M_id),
+    ('ТОВ "Фуршет"', @addr_Yavor15A_Dnipro_id, @phone_Shevchenko_Y_id, @person_Shevchenko_Y_id),
+    ('ТОВ "Велика Кишеня"', @addr_NabPeremohy50_Dnipro_id, @phone_Bondarenko_D_id, @person_Bondarenko_D_id);
+
+DECLARE
+    @customer_Silpo_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Сільпо"'),
+    @customer_ATB_id INT = (SELECT id FROM customers WHERE name = 'АТБ-Маркет'),
+    @customer_Varus_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Варус"'),
+    @customer_Epicenter_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Епіцентр"'),
+    @customer_Nova_Line_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Нова Лінія"'),
+    @customer_Metro_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Метро"'),
+    @customer_Furshet_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Фуршет"'),
+    @customer_Velyka_Kyshenia_id INT = (SELECT id FROM customers WHERE name = 'ТОВ "Велика Кишеня"');
+
+INSERT INTO suppliers (name, address_id, phone_id, responsible_person_id, notes) VALUES
+    ('ТОВ "Молочний Союз"', @addr_Gagarina10_Dnipro_id, @phone_Tkachenko_A_id, @person_Tkachenko_A_id, 'Основний постачальник молочних продуктів. Регулярні поставки 3 рази на тиждень.'),
+    ('ПАТ "М''ясний Альянс"', @addr_Yavor20_Dnipro_id, @phone_Kovalenko_O_id, @person_Kovalenko_O_id, 'Постачальник м''ясних виробів. Поставки 2 рази на тиждень.'),
+    ('ТОВ "Хлібний Дім"', @addr_NabPeremohy30_Dnipro_id, @phone_Kravchenko_M_id, @person_Kravchenko_M_id, 'Постачальник хлібобулочних виробів. Щоденні поставки.'),
+    ('ПАТ "Фруктовий Рай"', @addr_Khreshchatyk21_Kyiv_id, @phone_Oliynyk_I_id, @person_Oliynyk_I_id, 'Постачальник фруктів та овочів. Поставки 2 рази на тиждень.'),
+    ('ТОВ "Солодкий Світ"', @addr_Svobody8_Lviv_id, @phone_Nazarenko_S_id, @person_Nazarenko_S_id, 'Постачальник кондитерських виробів. Поставки раз на тиждень.'),
+    ('ПАТ "Напої Плюс"', @addr_Sumska12_Kharkiv_id, @phone_Pavlenko_V_id, @person_Pavlenko_V_id, 'Постачальник безалкогольних напоїв. Поставки 2 рази на тиждень.'),
+    ('ТОВ "Морозивна Компанія"', @addr_Derybasivska5_Odesa_id, @phone_Marchenko_T_id, @person_Marchenko_T_id, 'Постачальник морозива. Поставки раз на тиждень.'),
+    ('ПАТ "Експрес Доставка"', @addr_Marshalkowska100_Warsaw_id, @phone_Herashchenko_A_id, @person_Herashchenko_A_id, 'Логістична компанія. Доставка товарів по всій Україні.');
+
+DECLARE
+    @supplier_Dairy_Union_id INT = (SELECT id FROM suppliers WHERE name = 'ТОВ "Молочний Союз"'),
+    @supplier_Meat_Alliance_id INT = (SELECT id FROM suppliers WHERE name = 'ПАТ "М''ясний Альянс"'),
+    @supplier_Bread_House_id INT = (SELECT id FROM suppliers WHERE name = 'ТОВ "Хлібний Дім"'),
+    @supplier_Fruit_Paradise_id INT = (SELECT id FROM suppliers WHERE name = 'ПАТ "Фруктовий Рай"'),
+    @supplier_Sweet_World_id INT = (SELECT id FROM suppliers WHERE name = 'ТОВ "Солодкий Світ"'),
+    @supplier_Drinks_Plus_id INT = (SELECT id FROM suppliers WHERE name = 'ПАТ "Напої Плюс"'),
+    @supplier_Ice_Cream_Company_id INT = (SELECT id FROM suppliers WHERE name = 'ТОВ "Морозивна Компанія"'),
+    @supplier_Express_Delivery_id INT = (SELECT id FROM suppliers WHERE name = 'ПАТ "Експрес Доставка"');
+
+INSERT INTO product (name, product_type_id, manufacturer_id, storage_conditions, packaging_id, created_at, expiration_at) VALUES
+    ('Молоко 2,5%', @product_type_Dairy_id, @manufacturer_Dairy_Alliance_id, 'Зберігати при температурі +2°C до +6°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-15'),
+    ('Сметана 15%', @product_type_Dairy_id, @manufacturer_Dairy_Alliance_id, 'Зберігати при температурі +2°C до +6°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-14'),
+    ('Йогурт з фруктами', @product_type_Dairy_id, @manufacturer_Dairy_Alliance_id, 'Зберігати при температурі +2°C до +6°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-10'),
+    ('Ковбаса "Докторська"', @product_type_Meat_id, @manufacturer_Meat_Company_id, 'Зберігати при температурі -2°C до +4°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-08'),
+    ('Сосиски "Молочні"', @product_type_Meat_id, @manufacturer_Meat_Company_id, 'Зберігати при температурі -2°C до +4°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-07'),
+    ('Бекон', @product_type_Meat_id, @manufacturer_Meat_Company_id, 'Зберігати при температурі -2°C до +4°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-01-05'),
+    ('Хліб "Білий"', @product_type_Bakery_id, @manufacturer_Bread_Industry_id, 'Зберігати при температурі +18°C до +22°C', @packaging_Paper_Bag_id, '2024-01-01', '2024-01-04'),
+    ('Батон "Столичний"', @product_type_Bakery_id, @manufacturer_Bread_Industry_id, 'Зберігати при температурі +18°C до +22°C', @packaging_Paper_Bag_id, '2024-01-01', '2024-01-04'),
+    ('Булочка з маком', @product_type_Bakery_id, @manufacturer_Bread_Industry_id, 'Зберігати при температурі +18°C до +22°C', @packaging_Paper_Bag_id, '2024-01-01', '2024-01-03'),
+    ('Яблука "Голден"', @product_type_Fruits_Vegetables_id, @manufacturer_Fruit_World_id, 'Зберігати при температурі +4°C до +8°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-01-15'),
+    ('Помідори', @product_type_Fruits_Vegetables_id, @manufacturer_Fruit_World_id, 'Зберігати при температурі +4°C до +8°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-01-10'),
+    ('Огірки', @product_type_Fruits_Vegetables_id, @manufacturer_Fruit_World_id, 'Зберігати при температурі +4°C до +8°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-01-08'),
+    ('Шоколад "Молочний"', @product_type_Confectionery_id, @manufacturer_Confectionery_Factory_id, 'Зберігати при температурі +15°C до +20°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-07-01'),
+    ('Печиво "Овсяне"', @product_type_Confectionery_id, @manufacturer_Confectionery_Factory_id, 'Зберігати при температурі +15°C до +20°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-06-01'),
+    ('Цукерки "Асорті"', @product_type_Confectionery_id, @manufacturer_Confectionery_Factory_id, 'Зберігати при температурі +15°C до +20°C', @packaging_Cardboard_Box_id, '2024-01-01', '2024-06-30'),
+    ('Сік "Апельсиновий"', @product_type_Beverages_id, @manufacturer_Drinks_Ukraine_id, 'Зберігати при температурі +4°C до +20°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-12-31'),
+    ('Вода мінеральна', @product_type_Beverages_id, @manufacturer_Drinks_Ukraine_id, 'Зберігати при температурі +4°C до +20°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-12-31'),
+    ('Газована вода', @product_type_Beverages_id, @manufacturer_Drinks_Ukraine_id, 'Зберігати при температурі +4°C до +20°C', @packaging_Plastic_Container_id, '2024-01-01', '2024-12-31'),
+    ('Морозиво "Пломбір"', @product_type_Ice_Cream_id, @manufacturer_Ice_Cream_Company_id, 'Зберігати при температурі -18°C до -22°C', @packaging_Thermal_Bag_id, '2024-01-01', '2024-06-30'),
+    ('Морозиво "Ескімо"', @product_type_Ice_Cream_id, @manufacturer_Ice_Cream_Company_id, 'Зберігати при температурі -18°C до -22°C', @packaging_Thermal_Bag_id, '2024-01-01', '2024-06-30'),
+    ('Морозиво "Фруктовий лід"', @product_type_Ice_Cream_id, @manufacturer_Ice_Cream_Company_id, 'Зберігати при температурі -18°C до -22°C', @packaging_Thermal_Bag_id, '2024-01-01', '2024-06-30');
+
+DECLARE
+    @product_Milk_id INT = (SELECT id FROM product WHERE name = 'Молоко 2,5%'),
+    @product_Sour_Cream_id INT = (SELECT id FROM product WHERE name = 'Сметана 15%'),
+    @product_Yogurt_id INT = (SELECT id FROM product WHERE name = 'Йогурт з фруктами'),
+    @product_Sausage_id INT = (SELECT id FROM product WHERE name = 'Ковбаса "Докторська"'),
+    @product_Frankfurters_id INT = (SELECT id FROM product WHERE name = 'Сосиски "Молочні"'),
+    @product_Bacon_id INT = (SELECT id FROM product WHERE name = 'Бекон'),
+    @product_White_Bread_id INT = (SELECT id FROM product WHERE name = 'Хліб "Білий"'),
+    @product_Baton_id INT = (SELECT id FROM product WHERE name = 'Батон "Столичний"'),
+    @product_Poppy_Bun_id INT = (SELECT id FROM product WHERE name = 'Булочка з маком'),
+    @product_Apples_id INT = (SELECT id FROM product WHERE name = 'Яблука "Голден"'),
+    @product_Tomatoes_id INT = (SELECT id FROM product WHERE name = 'Помідори'),
+    @product_Cucumbers_id INT = (SELECT id FROM product WHERE name = 'Огірки'),
+    @product_Chocolate_id INT = (SELECT id FROM product WHERE name = 'Шоколад "Молочний"'),
+    @product_Cookies_id INT = (SELECT id FROM product WHERE name = 'Печиво "Овсяне"'),
+    @product_Candies_id INT = (SELECT id FROM product WHERE name = 'Цукерки "Асорті"'),
+    @product_Orange_Juice_id INT = (SELECT id FROM product WHERE name = 'Сік "Апельсиновий"'),
+    @product_Mineral_Water_id INT = (SELECT id FROM product WHERE name = 'Вода мінеральна'),
+    @product_Soda_id INT = (SELECT id FROM product WHERE name = 'Газована вода'),
+    @product_Ice_Cream_Plombir_id INT = (SELECT id FROM product WHERE name = 'Морозиво "Пломбір"'),
+    @product_Ice_Cream_Eskimo_id INT = (SELECT id FROM product WHERE name = 'Морозиво "Ескімо"'),
+    @product_Ice_Cream_Fruit_id INT = (SELECT id FROM product WHERE name = 'Морозиво "Фруктовий лід"');
+
+INSERT INTO deliveries (delivery_date, delivery_document_number, total_cost, delivery_method_id, supplier_id, employee_id, notes) VALUES
+    ('2024-01-02', 'DEL-2024-001', 15000.00, @delivery_method_Transport_Company_id, @supplier_Dairy_Union_id, @person_Petrov_S_id, 'Регулярна поставка молочних продуктів'),
+    ('2024-01-03', 'DEL-2024-002', 25000.00, @delivery_method_Courier_id, @supplier_Meat_Alliance_id, @person_Sydorenko_V_id, 'Поставка м''ясних виробів'),
+    ('2024-01-04', 'DEL-2024-003', 12000.00, @delivery_method_Self_Pickup_id, @supplier_Bread_House_id, @person_Lysenko_M_id, 'Щоденна поставка хлібобулочних виробів'),
+    ('2024-01-05', 'DEL-2024-004', 18000.00, @delivery_method_Transport_Company_id, @supplier_Fruit_Paradise_id, @person_Melnyk_A_Lec_id, 'Поставка фруктів та овочів'),
+    ('2024-01-06', 'DEL-2024-005', 20000.00, @delivery_method_Courier_id, @supplier_Sweet_World_id, @person_Ivanenko_M_id, 'Поставка кондитерських виробів'),
+    ('2024-01-07', 'DEL-2024-006', 22000.00, @delivery_method_Transport_Company_id, @supplier_Drinks_Plus_id, @person_Shevchenko_Y_id, 'Поставка безалкогольних напоїв'),
+    ('2024-01-08', 'DEL-2024-007', 16000.00, @delivery_method_Courier_id, @supplier_Ice_Cream_Company_id, @person_Bondarenko_D_id, 'Поставка морозива'),
+    ('2024-01-09', 'DEL-2024-008', 19000.00, @delivery_method_Express_Delivery_id, @supplier_Express_Delivery_id, @person_Tkachenko_A_id, 'Експрес-поставка товарів');
+
+DECLARE
+    @delivery_Dairy_2024_001_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-001'),
+    @delivery_Meat_2024_002_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-002'),
+    @delivery_Bread_2024_003_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-003'),
+    @delivery_Fruit_2024_004_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-004'),
+    @delivery_Sweet_2024_005_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-005'),
+    @delivery_Drinks_2024_006_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-006'),
+    @delivery_Ice_Cream_2024_007_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-007'),
+    @delivery_Express_2024_008_id INT = (SELECT id FROM deliveries WHERE delivery_document_number = 'DEL-2024-008');
+
+INSERT INTO delivery_items (delivery_id, product_id, quantity, unit_price) VALUES
+    (@delivery_Dairy_2024_001_id, @product_Milk_id, 100, 45.00),
+    (@delivery_Dairy_2024_001_id, @product_Sour_Cream_id, 80, 35.00),
+    (@delivery_Dairy_2024_001_id, @product_Yogurt_id, 120, 25.00),
+    (@delivery_Meat_2024_002_id, @product_Sausage_id, 50, 180.00),
+    (@delivery_Meat_2024_002_id, @product_Frankfurters_id, 100, 120.00),
+    (@delivery_Meat_2024_002_id, @product_Bacon_id, 40, 250.00),
+    (@delivery_Bread_2024_003_id, @product_White_Bread_id, 200, 25.00),
+    (@delivery_Bread_2024_003_id, @product_Baton_id, 150, 30.00),
+    (@delivery_Bread_2024_003_id, @product_Poppy_Bun_id, 100, 20.00),
+    (@delivery_Fruit_2024_004_id, @product_Apples_id, 300, 15.00),
+    (@delivery_Fruit_2024_004_id, @product_Tomatoes_id, 200, 25.00),
+    (@delivery_Fruit_2024_004_id, @product_Cucumbers_id, 150, 20.00),
+    (@delivery_Sweet_2024_005_id, @product_Chocolate_id, 100, 45.00),
+    (@delivery_Sweet_2024_005_id, @product_Cookies_id, 200, 35.00),
+    (@delivery_Sweet_2024_005_id, @product_Candies_id, 150, 40.00),
+    (@delivery_Drinks_2024_006_id, @product_Orange_Juice_id, 150, 30.00),
+    (@delivery_Drinks_2024_006_id, @product_Mineral_Water_id, 200, 15.00),
+    (@delivery_Drinks_2024_006_id, @product_Soda_id, 180, 20.00),
+    (@delivery_Ice_Cream_2024_007_id, @product_Ice_Cream_Plombir_id, 100, 35.00),
+    (@delivery_Ice_Cream_2024_007_id, @product_Ice_Cream_Eskimo_id, 80, 40.00),
+    (@delivery_Ice_Cream_2024_007_id, @product_Ice_Cream_Fruit_id, 120, 30.00),
+    (@delivery_Express_2024_008_id, @product_Milk_id, 50, 45.00),
+    (@delivery_Express_2024_008_id, @product_Sausage_id, 30, 180.00),
+    (@delivery_Express_2024_008_id, @product_White_Bread_id, 100, 25.00),
+    (@delivery_Express_2024_008_id, @product_Apples_id, 150, 15.00),
+    (@delivery_Express_2024_008_id, @product_Chocolate_id, 50, 45.00),
+    (@delivery_Express_2024_008_id, @product_Orange_Juice_id, 80, 30.00),
+    (@delivery_Express_2024_008_id, @product_Ice_Cream_Plombir_id, 40, 35.00);
+
+INSERT INTO orders (order_date, customer_id, delivery_id, total_amount, status, notes, created_at, updated_at, created_by, updated_by) VALUES
+    ('2024-01-10', @customer_Silpo_id, @delivery_Dairy_2024_001_id, 15000.00, 'COMPLETED', 'Регулярний замовлення молочних продуктів', '2024-01-10', '2024-01-10', @person_Petrov_S_id, @person_Petrov_S_id),
+    ('2024-01-11', @customer_ATB_id, @delivery_Meat_2024_002_id, 25000.00, 'COMPLETED', 'Замовлення м''ясних виробів', '2024-01-11', '2024-01-11', @person_Kovalchuk_O_id, @person_Kovalchuk_O_id),
+    ('2024-01-12', @customer_Varus_id, @delivery_Bread_2024_003_id, 12000.00, 'COMPLETED', 'Замовлення хлібобулочних виробів', '2024-01-12', '2024-01-12', @person_Sydorenko_V_id, @person_Sydorenko_V_id),
+    ('2024-01-13', @customer_Epicenter_id, @delivery_Fruit_2024_004_id, 18000.00, 'PROCESSING', 'Замовлення фруктів та овочів', '2024-01-13', '2024-01-13', @person_Lysenko_M_id, @person_Lysenko_M_id),
+    ('2024-01-14', @customer_Nova_Line_id, @delivery_Sweet_2024_005_id, 20000.00, 'NEW', 'Замовлення кондитерських виробів', '2024-01-14', '2024-01-14', @person_Melnyk_A_Lec_id, @person_Melnyk_A_Lec_id),
+    ('2024-01-15', @customer_Metro_id, @delivery_Drinks_2024_006_id, 22000.00, 'NEW', 'Замовлення безалкогольних напоїв', '2024-01-15', '2024-01-15', @person_Ivanenko_M_id, @person_Ivanenko_M_id),
+    ('2024-01-16', @customer_Furshet_id, @delivery_Ice_Cream_2024_007_id, 16000.00, 'NEW', 'Замовлення морозива', '2024-01-16', '2024-01-16', @person_Shevchenko_Y_id, @person_Shevchenko_Y_id),
+    ('2024-01-17', @customer_Velyka_Kyshenia_id, @delivery_Express_2024_008_id, 19000.00, 'NEW', 'Експрес-замовлення товарів', '2024-01-17', '2024-01-17', @person_Bondarenko_D_id, @person_Bondarenko_D_id);
+
+DECLARE
+    @order_Silpo_2024_001_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Silpo_id AND order_date = '2024-01-10'),
+    @order_ATB_2024_002_id INT = (SELECT id FROM orders WHERE customer_id = @customer_ATB_id AND order_date = '2024-01-11'),
+    @order_Varus_2024_003_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Varus_id AND order_date = '2024-01-12'),
+    @order_Epicenter_2024_004_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Epicenter_id AND order_date = '2024-01-13'),
+    @order_Nova_Line_2024_005_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Nova_Line_id AND order_date = '2024-01-14'),
+    @order_Metro_2024_006_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Metro_id AND order_date = '2024-01-15'),
+    @order_Furshet_2024_007_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Furshet_id AND order_date = '2024-01-16'),
+    @order_Velyka_Kyshenia_2024_008_id INT = (SELECT id FROM orders WHERE customer_id = @customer_Velyka_Kyshenia_id AND order_date = '2024-01-17');
+
+INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
+    (@order_Silpo_2024_001_id, @product_Milk_id, 100, 45.00),
+    (@order_Silpo_2024_001_id, @product_Sour_Cream_id, 80, 35.00),
+    (@order_Silpo_2024_001_id, @product_Yogurt_id, 120, 25.00),
+    (@order_ATB_2024_002_id, @product_Sausage_id, 50, 180.00),
+    (@order_ATB_2024_002_id, @product_Frankfurters_id, 100, 120.00),
+    (@order_ATB_2024_002_id, @product_Bacon_id, 40, 250.00),
+    (@order_Varus_2024_003_id, @product_White_Bread_id, 200, 25.00),
+    (@order_Varus_2024_003_id, @product_Baton_id, 150, 30.00),
+    (@order_Varus_2024_003_id, @product_Poppy_Bun_id, 100, 20.00),
+    (@order_Epicenter_2024_004_id, @product_Apples_id, 300, 15.00),
+    (@order_Epicenter_2024_004_id, @product_Tomatoes_id, 200, 25.00),
+    (@order_Epicenter_2024_004_id, @product_Cucumbers_id, 150, 20.00),
+    (@order_Nova_Line_2024_005_id, @product_Chocolate_id, 100, 45.00),
+    (@order_Nova_Line_2024_005_id, @product_Cookies_id, 200, 35.00),
+    (@order_Nova_Line_2024_005_id, @product_Candies_id, 150, 40.00),
+    (@order_Metro_2024_006_id, @product_Orange_Juice_id, 150, 30.00),
+    (@order_Metro_2024_006_id, @product_Mineral_Water_id, 200, 15.00),
+    (@order_Metro_2024_006_id, @product_Soda_id, 180, 20.00),
+    (@order_Furshet_2024_007_id, @product_Ice_Cream_Plombir_id, 100, 35.00),
+    (@order_Furshet_2024_007_id, @product_Ice_Cream_Eskimo_id, 80, 40.00),
+    (@order_Furshet_2024_007_id, @product_Ice_Cream_Fruit_id, 120, 30.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Milk_id, 50, 45.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Sausage_id, 30, 180.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_White_Bread_id, 100, 25.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Apples_id, 150, 15.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Chocolate_id, 50, 45.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Orange_Juice_id, 80, 30.00),
+    (@order_Velyka_Kyshenia_2024_008_id, @product_Ice_Cream_Plombir_id, 40, 35.00);
+
