@@ -1,5 +1,7 @@
 USE Course
 
+EXEC drop_table 'order_items';
+EXEC drop_table 'orders';
 EXEC drop_table 'deliveries';
 EXEC drop_table 'delivery_methods';
 EXEC drop_table 'employees';
@@ -80,6 +82,7 @@ CREATE TABLE passports (
     issue_place VARCHAR(100) NOT NULL,
     FOREIGN KEY (person_id) REFERENCES persons (id) ON DELETE CASCADE,
     UNIQUE(person_id),
+    UNIQUE(series, number),
     CONSTRAINT chk_passport_format CHECK (
         series LIKE '[A-Z][A-Z]' AND 
         number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9]'
@@ -95,6 +98,7 @@ CREATE TABLE id_cards (
     issue_place VARCHAR(100) NOT NULL,
     FOREIGN KEY (person_id) REFERENCES persons (id) ON DELETE CASCADE,
     UNIQUE(person_id),
+    UNIQUE(number),
     CONSTRAINT chk_id_card_format CHECK (
         number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
     ),
@@ -117,7 +121,8 @@ CREATE TABLE employees (
     end_date DATE,
     FOREIGN KEY (person_id) REFERENCES persons(id) ON DELETE CASCADE,
     FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE CASCADE,
-    UNIQUE(person_id)
+    UNIQUE(person_id),
+    CONSTRAINT chk_employment_dates CHECK (end_date IS NULL OR end_date > start_date)
 );
 
 CREATE TABLE responsibilities (
@@ -200,14 +205,14 @@ CREATE TABLE manufacturer (
 CREATE TABLE packaging (
     id TINYINT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    description VARCHAR(500) NOT NULL,
+    description VARCHAR(500) NOT NULL
 );
 
 CREATE TABLE product_type (
     id TINYINT IDENTITY(1,1) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(500) NOT NULL,
-    characteristics VARCHAR(1000) NOT NULL,
+    characteristics VARCHAR(1000) NOT NULL
 );
 
 CREATE TABLE product (
@@ -221,7 +226,8 @@ CREATE TABLE product (
     expiration_at DATE,
     FOREIGN KEY (product_type_id) REFERENCES product_type(id),
     FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(id),
-    FOREIGN KEY (packaging_id) REFERENCES packaging(id)
+    FOREIGN KEY (packaging_id) REFERENCES packaging(id),
+    CONSTRAINT chk_product_dates CHECK (expiration_at IS NULL OR expiration_at > created_at)
 );
 
 CREATE TABLE delivery_items (
@@ -235,6 +241,38 @@ CREATE TABLE delivery_items (
     FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
     CONSTRAINT chk_positive_quantity CHECK (quantity > 0),
     CONSTRAINT chk_positive_unit_price CHECK (unit_price >= 0)
+);
+
+CREATE TABLE orders (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    order_date DATE NOT NULL DEFAULT GETDATE(),
+    customer_id INT NOT NULL,
+    delivery_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'NEW',
+    notes VARCHAR(500),
+    created_at DATE NOT NULL DEFAULT GETDATE(),
+    updated_at DATE NOT NULL DEFAULT GETDATE(),
+    created_by INT NOT NULL,
+    updated_by INT NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE NO ACTION,
+    FOREIGN KEY (delivery_id) REFERENCES deliveries(id) ON DELETE NO ACTION,
+    FOREIGN KEY (created_by) REFERENCES employees(id) ON DELETE NO ACTION,
+    FOREIGN KEY (updated_by) REFERENCES employees(id) ON DELETE NO ACTION,
+    CONSTRAINT chk_order_status CHECK (status IN ('NEW', 'PROCESSING', 'COMPLETED', 'CANCELLED'))
+);
+
+CREATE TABLE order_items (
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total_price AS (quantity * unit_price),
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
+    CONSTRAINT chk_positive_order_quantity CHECK (quantity > 0),
+    CONSTRAINT chk_positive_order_unit_price CHECK (unit_price >= 0)
 );
 
 GO

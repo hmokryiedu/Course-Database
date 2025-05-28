@@ -1,3 +1,5 @@
+USE Course
+
 IF OBJECT_ID('drop_table', 'P') IS NOT NULL DROP PROCEDURE drop_table 
 GO
 
