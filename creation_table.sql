@@ -25,6 +25,7 @@ EXEC drop_table 'product';
 EXEC drop_table 'product_type';
 EXEC drop_table 'packaging';
 EXEC drop_table 'manufacturer';
+EXEC drop_table 'warehouse_stock';
 
 CREATE TABLE cities (
     id TINYINT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -275,6 +276,13 @@ CREATE TABLE order_items (
     CONSTRAINT chk_positive_order_unit_price CHECK (unit_price >= 0)
 );
 
+CREATE TABLE warehouse_stock (
+    product_id INT NOT NULL PRIMARY KEY,
+    current_quantity INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
+    CONSTRAINT chk_positive_stock_quantity CHECK (current_quantity >= 0)
+);
+
 GO
 
 CREATE TRIGGER trg_prevent_dual_documents_passport
@@ -339,6 +347,50 @@ AFTER DELETE
 AS
 BEGIN
     DELETE FROM deliveries WHERE employee_id IN (SELECT id FROM deleted)
-END; 
+END;
 
 GO
+
+CREATE TRIGGER trg_update_stock_on_delivery
+ON delivery_items
+AFTER INSERT
+AS
+BEGIN
+    MERGE warehouse_stock AS target
+    USING (
+        SELECT product_id, SUM(quantity) as total_quantity
+        FROM inserted
+        GROUP BY product_id
+    ) AS source
+    ON (target.product_id = source.product_id)
+    WHEN MATCHED THEN
+        UPDATE SET current_quantity = target.current_quantity + source.total_quantity
+    WHEN NOT MATCHED THEN
+        INSERT (product_id, current_quantity)
+        VALUES (source.product_id, source.total_quantity);
+END;
+
+GO
+
+CREATE TRIGGER trg_update_stock_on_order
+ON order_items
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        INNER JOIN warehouse_stock ws ON i.product_id = ws.product_id
+        WHERE ws.current_quantity < i.quantity
+    )
+    BEGIN
+        RAISERROR ('Недостатня кількість товару на складі', 16, 1);
+        ROLLBACK TRANSACTION;
+        RETURN;
+    END;
+    
+    UPDATE ws
+    SET current_quantity = ws.current_quantity - i.quantity
+    FROM warehouse_stock ws
+    INNER JOIN inserted i ON ws.product_id = i.product_id;
+END;
