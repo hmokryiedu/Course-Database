@@ -655,4 +655,3 @@ INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
     (@order_Velyka_Kyshenia_2024_008_id, @product_Chocolate_id, 50, 45.00),
     (@order_Velyka_Kyshenia_2024_008_id, @product_Orange_Juice_id, 80, 30.00),
     (@order_Velyka_Kyshenia_2024_008_id, @product_Ice_Cream_Plombir_id, 40, 35.00);
-
